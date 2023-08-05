@@ -43,7 +43,6 @@ class Reservation(db.Model):
     def __repr__(self) -> str:
         return f"Reservation('{self.user_id}','{self.show_id}','{self.num_seats}')"
 
-<<<<<<< HEAD
 class Admin(db.Model, UserMixin):
     __tablename__ = 'admin'
     admin_id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
