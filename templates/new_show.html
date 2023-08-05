@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %} Create Show - ReserveIt {% endblock title %}
+{% block home %}active{% endblock home %}
+{% block content %}
+    <div class="container content-section mt-4">
+        <form method="post">
+            {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
+            <fieldset class="form-outline mb-2">
+                <legend class="border-bottom mb-4">{{ legend }}</legend>
+                <div class="form-outline mb-2">
+                    {{ form.name.label(class="form-control-label") }}
+                    {{ form.name(class="form-control") }}
+                </div>
+                <div class="form-control mb-2">
+                    {{ form.desc.label(class="form-control-label") }}
+                    {{ form.desc(class="form-control") }}
+                </div>
+                <div class="form-control mb-2">
+                    {{ form.datetime.label(class="form-control-label") }}
+                    {{ form.datetime(class="form-control", type="datetime-local") }}
+                </div>
+                <div class="form-control mb-2">
+                    {{ form.cap.label(class="form-control-label") }}
+                    {{ form.cap(class="form-control") }}
+                </div>
+                    <div class="form-control mb-2">
+                    {{ form.current_cap.label(class="form-control-label") }}
+                    {{ form.current_cap(class="form-control") }}
+                </div>
+                <div class="form-control mb-2">
+                    {{ form.price.label(class="form-control-label") }}
+                    {{ form.price(class="form-control") }}
+                </div>
+            </fieldset>
+            <div class="form-outline mb-2">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

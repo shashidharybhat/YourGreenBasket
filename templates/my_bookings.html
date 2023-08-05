@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %} My Bookings - ReserveIt {% endblock title %}
+{% block booking %}active{% endblock booking %}
+{% block content %}
+    <div class="container content-section">
+        <h3 class="ms-2">Your Bookings</h3>
+        {% for show in shows %}
+            <div class="card d-flex flex-row m-2 p-1">
+                <h5 class="card-title align-middle mx-2 pt-1" style="color: #084298">
+                    {% for venue in venues %}
+                        {% if venue.venue_id==show.show_venue %}
+                            {{ venue.venue_name }}
+                        {% endif %}
+                    {% endfor %}
+                </h5>
+                <h5 class="card-title align-self-start align-content-center mx-2 pt-1 text-body-emphasis">{{ show.show_name }}</h5>
+                <div class="align-self-center ms-auto">
+                    <button class="btn btn-info btn-sm mx-1" onclick="window.location.href='/rate/{{ show.show_id }}'">Rate this Show</button>
+                    <button class="btn btn-danger btn-sm mx-1" onclick="window.location.href='/booking/{{ show.show_id }}/delete'">Delete Booking</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

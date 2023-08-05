@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block title %} Admin Dashboard - ReserveIt {% endblock title %}
+{% block home %}active{% endblock home %}
+{% block content %}
+    {% if venues==[] %}
+        <div class="cardcard ms-5 me-5 my-3 border-dark h-100 content-section">
+            <div class="card-header">No Venues added!</div>
+            <div class="card-body">
+                <div class="card-text"> Add New Venue</div>
+                <button class="btn btn-primary" onclick="window.location.href='/newVenue'">Add Venue</button>
+            </div>
+        </div>
+    {% else %}
+        {% for venue in venues %}
+            <div class="card ms-5 me-5 my-3 border-secondary h-50 content-section">
+                <div class="card-header border-dark">
+                    <div class="container-fluid">
+                        <div class="float-start text-center">
+                            <h5>{{ venue.venue_name }}</h5>
+                            <div class="ms-3 text-secondary">{{ venue.venue_loc }}</div>
+                        </div>
+                        <div class="float-end">
+                            <button class="btn btn-info"
+                                    onclick="window.location.href='/venue/{{ venue.venue_id }}/edit'">Edit Venue
+                            </button>
+                            <button class="btn btn-danger"
+                                    onclick="window.location.href='/venue/{{ venue.venue_id }}/delete'">Delete Venue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row flex-nowrap m-2" style="overflow-x: auto">
+                    {% if shows==[] %}
+                        <div class="card border-primary-subtle">
+                            <div class="card-header">No Shows Added</div>
+                            <div class="card-body">
+                                <h6 class="card-title">Add New Show</h6>
+                                <button class="btn btn-primary"
+                                        onclick="window.location.href='/show/{{ venue.venue_id }}/new'">
+                                    Add Show
+                                </button>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col mx-3 my-2">
+                            <div class="card border-primary-subtle h-100">
+                                <div class="card-header text-nowrap">Add more Shows</div>
+                                <div class="card-body">
+                                    <button class="btn btn-primary"
+                                            onclick="window.location.href='/show/{{ venue.venue_id }}/new'">Add Show
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {% for show in shows %}
+                            {% if show.show_venue == venue.venue_id %}
+                                <div class="col mx-2 my-2">
+                                    <div class="card border-primary-subtle h-100" style="width: 18rem">
+                                        <div class="card-header">
+                                            <div class="container-fluid row">
+                                                <div class="col float-start text-center">
+                                                    <div class="align-content-start">{{ show.show_name }} </div>
+                                                    <div class="align-content-end text-secondary"> {{ show.show_rating }}/5</div>
+                                                </div>
+                                                <div class="col float-end">
+                                                    <div class="row mb-1">
+                                                        <button class="btn btn-info btn-sm"
+                                                                onclick="window.location.href='/show/{{ show.show_id }}/edit'">
+                                                            Edit
+                                                        </button>
+                                                    </div>
+                                                    <div class="row">
+                                                        <button class="btn btn-danger btn-sm"
+                                                                onclick="window.location.href='/show/{{ show.show_id }}/delete'">
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body d-flex flex-column">
+                                            <p class="card-text card-group">{{ show.show_desc }}</p>
+                                            <div class="d-flex flex-row mt-auto align-self-center"><a
+                                                    href="/booking/{{ show.show_id }}"
+                                                    class="btn btn-primary btn-sm">Book Tickets</a>
+                                                <div class="card-text ps-2 pt-2">Price: {{ show.show_price }}$</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="cardcard ms-5 me-5 my-3 border-secondary h-50 content-section">
+            <div class="card-header">Add more Venues</div>
+            <div class="card-body">
+                <button class="btn btn-primary" onclick="window.location.href='/newVenue'">Add Venue</button>
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}

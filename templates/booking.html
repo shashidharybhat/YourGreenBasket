@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %} Homepage - ReserveIt {% endblock title %}
+{% block home %}active{% endblock home %}
+{% block content %}
+    {% for venue in venues %}
+        {% if venue.venue_shows==[] %}
+        {% else %}
+            <div class="card ms-5 me-5 my-3 border-dark h-50 content-section">
+                <div class="card-header">
+                    <div class="float-start text-center">
+                        <h5>{{ venue.venue_name }}</h5>
+                        <div class="ms-3 text-secondary">{{ venue.venue_loc }}</div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row flex-nowrap m-2" style="overflow-x: auto">
+                    {% for show in shows %}
+                        {% if show.show_venue == venue.venue_id %}
+                            <div class="col mx-2 my-2">
+                                <div class="card border-primary-subtle h-100" style="width: 18rem">
+                                    <div class="card-header">
+                                        <div class="align-content-start">{{ show.show_name }} </div>
+                                        <div class="align-content-end text-secondary"> {{ show.show_rating }}/5</div>
+                                    </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <p class="card-text card-group">{{ show.show_desc }}</p>
+                                        <div class="d-flex flex-row mt-auto align-self-center">
+                                            {% if show.show_current >= show.show_cap %}
+                                                <a class="btn btn-primary btn-sm disabled">House Full</a>
+                                            {% else %}
+                                                <a href="/booking/{{ show.show_id }}" class="btn btn-primary btn-sm">Book Tickets</a>
+                                            {% endif %}
+                                            <div class="card-text ps-2 pt-2">Price: {{ show.show_price }}$</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

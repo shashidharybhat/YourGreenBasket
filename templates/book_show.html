@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %} Book Show - ReserveIt {% endblock title %}
+{% block home %}active{% endblock home %}
+{% block content %}
+<div class="container content-section mt-4">
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+        <fieldset class="form-outline mb-2">
+                <legend class="border-bottom mb-4">Book Seats for {{ show.show_name }}</legend>
+                <div class="form-outline mb-2">
+                    {{ form.seats.label(class="form-control-label") }}
+                    {{ form.seats(class="form-control") }}
+                </div>
+                <div class="form-outline mb-2">
+                    <h5 class="mx-2">Seats Left: {{ show.show_cap - show.show_current }}</h5>
+                </div>
+            <div class="form-outline mb-2">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock content %}

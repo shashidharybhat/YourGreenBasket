@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %} Rating - ReserveIt {% endblock title %}
+{% block booking %}active{% endblock booking %}
+{% block content %}
+<div class="container content-section">
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+        <fieldset class="form-outline mb-2">
+                <legend class="border-bottom mb-4">Book Seats for {{ show.show_name }}</legend>
+                <div class="form-outline mb-2">
+                    {{ form.rate.label(class="form-control-label") }}
+                    {{ form.rate(class="form-control") }}
+                </div>
+                <div class="form-outline mb-2">
+                    <h6 class="mx-2">Current Rating: {{ show.show_rating }}/5</h6>
+                </div>
+            <div class="form-outline mb-2">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock content %}
